@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app',  # <--- ДОБАВЛЕНО ВАШЕ ПРИЛОЖЕНИЕ
 ]
 
 MIDDLEWARE = [
@@ -130,5 +131,5 @@ MAILERS = {
 }
 
 
-
-AUTH_USER_MODELS='app.models.MyUser'
+# <--- ИСПРАВЛЕНО: AUTH_USER_MODEL (без S) и добавлены кавычки
+AUTH_USER_MODEL = 'app.MyUser'

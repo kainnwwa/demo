@@ -1,12 +1,20 @@
 from django.forms import ModelForm
 from .models import Request
 
-
-class RequestForm (ModelForm):
+class RequestForm(ModelForm):
     class Meta:
         model = Request
-        fields = '__all__'
-def save(self, commit=True):
-    instance = super().save(commit= False)
-    instance.user = self._user
-    return super().instance(commit)
+        fields = ['service', 'comment']
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.user:
+            instance.user = self.user
+        instance.status = 0
+        if commit:
+            instance.save()
+        return instance

@@ -6,6 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-    {% {% block  %}  {% endblock  %}%}
+    <header>
+        <ul>
+            <li><a href="{% url 'services' %}">Список услуг</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'form' %}">Личный кабинет ({{ user.username }})</a></li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Выйти</button>
+                    </form>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Войти</a></li>
+            {% endif %}
+        </ul>
+    </header>
+
+    {% block main_content %}{% endblock main_content %}
 </body>
 </html>
